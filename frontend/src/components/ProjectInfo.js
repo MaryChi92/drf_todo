@@ -20,9 +20,9 @@ const TodoItem = ({todo}) => {
 const TodoListProject = ({todos, projects}) => {
 
     let {id} = useParams()
-    console.log(id)
+    // console.log(id)
 
-    let filteredTodos = todos.filter((todo => todo.project.includes(parseInt(id))))
+    let filteredTodos = todos.filter((todo) => todo.project === parseInt(id))
 
 
     return (
