@@ -1,16 +1,20 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 const Menu = () => {
     return (
         <menu>
             <li>
-                <a href="">Все пользователи</a>
+                <Link to='/'>Главная</Link>
             </li>
             <li>
-                <a href="">Проекты</a>
+                <Link to='/users'>Все пользователи</Link>
             </li>
             <li>
-                <a href="">To-Do</a>
+                <Link to='/projects'>Проекты</Link>
+            </li>
+            <li>
+                <Link to='/todos'>To-Dos</Link>
             </li>
         </menu>
     )
