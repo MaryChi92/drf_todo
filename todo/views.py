@@ -25,7 +25,7 @@ class ToDoModelViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.request.method in ['GET']:
             return ToDoModelSerializer
-        return
+        return ToDoModelBaseSerializer
 
     def destroy(self, request, *args, **kwargs):
         try:
