@@ -41,7 +41,7 @@ class TestProjectViewSet(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_get_detail(self):
-        project = Project.objects.create(name=self.data_project['name'], users=self.data_project['users'])
+        project = mixer.blend(Project)
         client = APIClient()
         response = client.get(f'{self.api_projects}{project.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -53,18 +53,18 @@ class TestTodoViewSet(APITestCase):
         self.api_todos = '/api/todos/'
         self.data_project = {'name': 'test project', 'users': [1]}
         self.data_todo = {'project': 'test project', 'text': 'test to-do', 'created_by_user': 1}
-        # self.admin = User.objects.create_superuser('drf', 'drf@drf.local', 'drfdrf')
+        self.admin = User.objects.create_superuser('drf', 'drf@drf.com', 'drfdrf')
 
     def test_get_list(self):
         response = self.client.get(self.api_todos)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_edit_admin_mixer(self):
-        todo = mixer.blend(ToDo)
-        admin = User.objects.create_superuser('drf', 'drf@drf.local', 'drfdrf')
+        project = mixer.blend(Project, users=[self.admin])
+        todo = mixer.blend(ToDo, project=project, text='test', created_by_user=self.admin)
         self.client.login(username='drf', password='drfdrf')
-        response = self.client.put(f'{self.api_todos}{todo.id}/', {'project': todo.project.id, 'text': 'test to-do 1',
-                                                                   'created_by_user': 1})
+        response = self.client.put(f'{self.api_todos}{todo.id}/', {'project': project.id, 'text': 'test to-do 1', 'created_by_user': self.admin.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        todo = ToDo.objects.get(id=todo.id)
-        self.assertEqual(todo.text, 'test to-do 1')
+        todo_ = ToDo.objects.get(id=todo.id)
+        self.assertEqual(todo_.text, 'test to-do 1')
+        self.client.logout()
