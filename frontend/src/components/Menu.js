@@ -16,12 +16,18 @@ class Menu extends React.Component {
         this.setState(
             {[event.target.name]: event.target.value}
         );
-        console.log(this.state.search)
     }
 
     handleSubmit() {
-        console.log(this.state.search)
         this.searchProjects(this.state.search)
+    }
+
+    handleClear(event) {
+        event.target.previousElementSibling.value = ''
+        this.setState(
+            {'search': ''}
+        );
+        this.searchProjects('')
     }
 
     render() {
@@ -42,7 +48,8 @@ class Menu extends React.Component {
                 <li>
                     <input id="search" name='search' type="text" className="input" placeholder="искать..."
                            onChange={(event) => this.handleChange(event)}/>
-                    <button id="clear" className="clear-results" onClick={() => this.handleSubmit()} >
+                    {this.state.search ? <button onClick={(event) => this.handleClear(event)}>X</button> : null}
+                    <button className="btn btn-primary" onClick={() => this.handleSubmit()} >
                         <Link to='/projects'>Найти</Link>
                     </button>
                 </li>

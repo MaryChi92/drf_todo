@@ -126,9 +126,10 @@ class App extends React.Component {
             const filteredProjects = this.state.projects.filter(project => {
                 return project.name.toLowerCase().includes(projectName.toLowerCase())
             })
-            this.setState({project: filteredProjects})
+            this.setState({'projects': filteredProjects})
+        } else {
+            this.load_data()
         }
-        this.load_data()
     }
 
     createTodo(project, text, created_by_user, is_active) {
