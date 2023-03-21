@@ -24,8 +24,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-from users.views import UserModelViewSet
-from todo.views import ProjectModelViewSet, ToDoModelViewSet
+from backend.users.views import UserModelViewSet
+from backend.todo.views import ProjectModelViewSet, ToDoModelViewSet
 
 router = DefaultRouter()
 router.register('users', UserModelViewSet)
