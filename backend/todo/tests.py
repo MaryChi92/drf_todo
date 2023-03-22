@@ -5,7 +5,7 @@ from mixer.backend.django import mixer
 
 from .models import Project, ToDo
 from .views import ProjectModelViewSet
-from backend.users.models import User
+from users.models import User
 
 
 class TestProjectViewSet(TestCase):

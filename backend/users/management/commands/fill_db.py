@@ -3,7 +3,7 @@ import json
 from django.core.management import BaseCommand
 from django.conf import settings
 
-from backend.users.models import User
+from users.models import User
 
 
 class Command(BaseCommand):

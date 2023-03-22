@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
-from backend.todo.models import Project, ToDo
-from backend.users.models import User
+from todo.models import Project, ToDo
+from users.models import User
 
 
 class ProjectType(DjangoObjectType):

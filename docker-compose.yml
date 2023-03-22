@@ -10,11 +10,12 @@ services:
       POSTGRES_USER: drf
       POSTGRES_PASSWORD: drfdrf159
       POSTGRES_DB: todo
+
   backend:
     build:
       context: ./backend
-    expose:
-      - 8080
+    ports:
+      - 8080:8080
     command: bash -c "
       ./wait-for-postgres.sh db
       && python manage.py migrate
@@ -25,7 +26,7 @@ services:
       - db
 
   nginx:
-    build: nginx
+    build: ./nginx
     ports:
       - 8000:80
     depends_on:
